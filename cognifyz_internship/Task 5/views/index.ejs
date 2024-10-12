@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 5 - API Integration</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Task 5: API Integration and Front-End Interaction</h1>
+  
+  <form id="userForm" action="/api/users" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required>
+    
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+    
+    <button type="submit">Add User</button>
+  </form>
+
+  <h2>Users List</h2>
+  <div id="userList">
+    <ul>
+      <% users.forEach(user => { %>
+        <li>
+          <%= user.name %> - <%= user.email %> - <%= user.age %> - <%= user.gender %>
+          <form action="/api/users/update" method="POST" style="display: inline;">
+            <input type="hidden" name="id" value="<%= user.id %>">
+            <input type="text" name="name" placeholder="New Name" required>
+            <input type="email" name="email" placeholder="New Email" required>
+            <input type="number" name="age" placeholder="New Age" required>
+            <select name="gender" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+            <button type="submit">Update</button>
+          </form>
+          <form action="/api/users/delete" method="POST" style="display: inline;">
+            <input type="hidden" name="id" value="<%= user.id %>">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+</html>
